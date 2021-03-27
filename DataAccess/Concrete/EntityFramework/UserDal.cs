@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.EntityFramework
 {
@@ -21,6 +22,16 @@ namespace DataAccess.Concrete.EntityFramework
                              select new OperationClaim { Id = operationClaim.Id, Name = operationClaim.Name };
                 return result.ToList();
 
+            }
+        }
+
+        public void SetClaims(UserOperationClaim userOperationClaims)
+        {
+            using (AnatomyDB context = new AnatomyDB())
+            {
+                var addedClaims = context.Entry(userOperationClaims);
+                addedClaims.State = EntityState.Added;
+                context.SaveChanges();
             }
         }
     }

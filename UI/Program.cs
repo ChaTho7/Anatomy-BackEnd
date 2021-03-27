@@ -1,8 +1,4 @@
 ﻿using System;
-using Business.Abstract;
-using Business.Concrete;
-using DataAccess.Abstract;
-using DataAccess.Concrete.EntityFramework;
 
 namespace UI
 {
@@ -13,7 +9,7 @@ namespace UI
             //NewMethod();
 
             //Console.WriteLine(DateTime.Now.hour);
-
+            
             Console.ReadLine();
         }
 

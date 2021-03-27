@@ -23,5 +23,6 @@ namespace Business.Consts
         public static string userFetchedByMail = "User fetched successfully";
         public static string userNotExists = "User not exists";
         public static string imageNotExists = "Image not exists";
+        public static string claimsSetted="Claims setted successfully";
     }
 }

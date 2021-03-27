@@ -64,6 +64,7 @@ namespace Business.Concrete
             return new SuccessResult<Tissue>(Messages.success, _tissueDal.Get(p => p.Id == id));
         }
 
+        [SecuredOperation("product.add,admin")]
         public IResult<List<TissueDetailDto>> GetByFilter(int? id, int? sortId, int? regionId)
         {
             return new SuccessResult<List<TissueDetailDto>>(Messages.success, _tissueDal.GetDetailByFilter(id, sortId, regionId));
@@ -102,6 +103,6 @@ namespace Business.Concrete
                 return new FailResult<Tissue>(Messages.duplicateName);
             }
             return new SuccessResult<Tissue>(Messages.success);
-        }  
+        }
     }
 }

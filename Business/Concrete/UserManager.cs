@@ -40,5 +40,11 @@ namespace Business.Concrete
 
             return new SuccessResult<User>(Messages.userFetchedByMail,user);
         }
+
+        public IResult<List<OperationClaim>> SetClaims(UserOperationClaim userOperationClaims)
+        {
+            _userDal.SetClaims(userOperationClaims);
+            return new SuccessResult<List<OperationClaim>>(Messages.claimsSetted);
+        }
     }
 }

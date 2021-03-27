@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 using Core.Abstract;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,9 +47,8 @@ namespace Core.DataAccess.EntityFramework
             using (TContext context = new TContext())
             {
                 return filter == null ?
-                    context.Set<TEntity>().ToList():
+                    context.Set<TEntity>().ToList() :
                     context.Set<TEntity>().Where(filter).ToList();
-
             }
         }
 

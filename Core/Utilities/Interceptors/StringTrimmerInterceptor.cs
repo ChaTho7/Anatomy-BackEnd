@@ -11,9 +11,9 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Core.Utilities.Interceptors
 {
-    /*public class StringTrimmerInterceptor : DbCommandInterceptor
+    public class StringTrimmerInterceptor : DbCommandInterceptor
     {
-        public void StringTrimmer(DbCommand command, CommandEventData eventData)
+        /*public void StringTrimmer(DbCommand command, CommandEventData eventData)
         {
             var entities = eventData.Context.Model.GetEntityTypes();
             List<string> updatedStringNames = new List<string>();
@@ -105,6 +105,6 @@ namespace Core.Utilities.Interceptors
         //{
         //    StringTrimmer(command);
         //    base.ReaderExecuting(command, interceptionContext);
-        //}
-    }*/
+        //}*/
+    }
 }
