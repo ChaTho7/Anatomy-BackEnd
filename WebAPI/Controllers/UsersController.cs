@@ -20,6 +20,19 @@ namespace WebAPI.Controllers
             _userService = userService;
         }
 
+        [HttpGet("getUser")]
+        public ActionResult GetUserByMail(string email)
+        {
+
+            var result = _userService.GetByMail(email);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
         [HttpPost("setUserClaims")]
         public ActionResult Register(UserOperationClaim userOperationClaims)
         {

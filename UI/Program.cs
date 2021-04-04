@@ -8,9 +8,8 @@ namespace UI
         {
             //NewMethod();
 
-            //Console.WriteLine(DateTime.Now.hour);
-            
-            Console.ReadLine();
+            //Console.WriteLine(DateTime.Now);
+
         }
 
         //private static void NewMethod()

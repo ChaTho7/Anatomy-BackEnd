@@ -28,6 +28,7 @@ namespace Business.Concrete
             _sortService = sortService;
         }
 
+        [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(TissueValidator))]
         public IResult<Tissue> Add(Tissue tissue)
         {
@@ -45,26 +46,29 @@ namespace Business.Concrete
             return new SuccessResult<Tissue>(Messages.success, tissue);
         }
 
+        [SecuredOperation("product.add,admin")]
         [CacheRemoveAspect("ITissueService.GetById")]
         public IResult<Tissue> Delete(Tissue tissue)
         {
             return new SuccessResult<Tissue>(Messages.success, tissue);
         }
 
+        [SecuredOperation("product.add,admin")]
         [CacheRemoveAspect("ITissueService.GetById")]
         public IResult<Tissue> Update(Tissue tissue)
         {
+            _tissueDal.Update(tissue);
             return new SuccessResult<Tissue>(Messages.success, tissue);
         }
 
-        [SecuredOperation("product.add,admin")]
+        //[SecuredOperation("product.add,admin")]
         [CacheAspect]
         public IResult<Tissue> GetById(int id)
         {
             return new SuccessResult<Tissue>(Messages.success, _tissueDal.Get(p => p.Id == id));
         }
 
-        [SecuredOperation("product.add,admin")]
+        //[SecuredOperation("product.add,admin")]
         public IResult<List<TissueDetailDto>> GetByFilter(int? id, int? sortId, int? regionId)
         {
             return new SuccessResult<List<TissueDetailDto>>(Messages.success, _tissueDal.GetDetailByFilter(id, sortId, regionId));

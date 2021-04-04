@@ -21,6 +21,10 @@ namespace WebAPI.Controllers
             _tissueService = tissueService;
         }
 
+        /// <summary>
+        /// Get All Tissues
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
@@ -62,6 +66,18 @@ namespace WebAPI.Controllers
         public IActionResult Add(Tissue tissue)
         {
             var result = _tissueService.Add(tissue);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpPut("update")]
+        public IActionResult Update(Tissue tissue)
+        {
+            var result = _tissueService.Update(tissue);
             if (result.Success)
             {
                 return Ok(result);

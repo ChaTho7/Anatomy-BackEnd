@@ -32,6 +32,18 @@ namespace WebAPI
             //services.AddSingleton<ITissueService,TissueManager>();
             //services.AddSingleton<ITissueDal,TissueDal>();
 
+            services.AddSwaggerDocument(config =>
+            {
+                config.PostProcess = (doc =>
+                {
+                    doc.Info.Title = "ChaTho Anatomy";
+                    doc.Info.Contact = new NSwag.OpenApiContact()
+                    {
+                        Name = "Çaðdaþ Demirel",
+                        Url = "https://github.com/ChaTho7"
+                    };
+                });
+            });
             services.AddCors();
 
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
@@ -66,7 +78,13 @@ namespace WebAPI
 
             app.ConfigureCustomExceptionMiddleware();
 
-            app.UseCors(builder=>builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader());
+
+            //app.UseCors(builder=>builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
+
+            app.UseOpenApi();
+
+            app.UseSwaggerUi3();
 
             app.UseHttpsRedirection();
 

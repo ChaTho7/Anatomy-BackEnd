@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Core.Concrete.Files;
+using Microsoft.AspNetCore.Http;
 
 namespace WebAPI.Controllers
 {
@@ -17,11 +18,12 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("addimage")]
-        public IActionResult Add([FromForm] Image file, [FromForm] int tissueId)
+        public IActionResult Add([FromForm]IFormFile formFile, [FromForm]string tissueId)
         {
+            Image image = new Image {File = formFile};
             try
             {
-                var result = _tissueImageService.Add(file, tissueId);
+                var result = _tissueImageService.Add(image, Int32.Parse(tissueId));
 
                 if (result.Success)
                 {
