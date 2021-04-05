@@ -34,25 +34,5 @@ namespace DataAccess.Concrete.EntityFramework
                 context.SaveChanges();
             }
         }
-
-        public void UpdateUser(User user)
-        {
-            var _updatedUser = new User
-            {
-                Email = user.Email,
-                Id = user.Id,
-                Name = user.Name,
-                PasswordHash = base.Get(u => u.Id == user.Id).PasswordHash,
-                PasswordSalt = base.Get(u => u.Id == user.Id).PasswordSalt,
-                Status = true,
-                Surname = user.Surname
-            };
-            using (AnatomyDB context = new AnatomyDB())
-            {
-                var updatedUser = context.Entry(_updatedUser);
-                updatedUser.State = EntityState.Modified;
-                context.SaveChanges();
-            }
-        }
     }
 }

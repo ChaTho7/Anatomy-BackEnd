@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Core.Concrete;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,10 +35,10 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut("updateUser")]
-        public ActionResult UpdateUser(User user)
+        public ActionResult UpdateUser(UserUpdateDto userUpdate)
         {
 
-            var result = _userService.Update(user);
+            var result = _userService.Update(userUpdate);
             if (result.Success)
             {
                 return Ok(result);

@@ -2,7 +2,9 @@
 using Business.Consts;
 using Core.Concrete;
 using Core.Utilities.Result;
+using Core.Utilities.Security.Hashing;
 using DataAccess.Abstract;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,9 +31,30 @@ namespace Business.Concrete
             return new SuccessResult<User>(Messages.userRegistered, user);
         }
 
-        public IResult<User> Update(User user)
+        public IResult<User> Update(UserUpdateDto userUpdate)
         {
-            _userDal.UpdateUser(user);
+            byte[] passwordHash, passwordSalt;
+            if (userUpdate.Password == null)
+            {
+                var updatedUser = _userDal.Get(u => u.Id == userUpdate.Id);
+                passwordHash = updatedUser.PasswordHash;
+                passwordSalt = updatedUser.PasswordSalt;
+            }
+            else
+            {
+                HashingHelper.CreatePasswordHash(userUpdate.Password, out passwordHash, out passwordSalt);
+            }
+            var user = new User
+            {
+                Id = userUpdate.Id,
+                Email = userUpdate.Email,
+                Name = userUpdate.Name,
+                Surname = userUpdate.Surname,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Status = true
+            };
+            _userDal.Update(user);
             return new SuccessResult<User>(Messages.userUpdated);
         }
 
@@ -39,12 +62,12 @@ namespace Business.Concrete
         {
             var user = _userDal.Get(u => u.Email == email);
 
-            if (user==null)
+            if (user == null)
             {
                 return new FailResult<User>(Messages.userNotExists);
             }
 
-            return new SuccessResult<User>(Messages.userFetchedByMail,user);
+            return new SuccessResult<User>(Messages.userFetchedByMail, user);
         }
 
         public IResult<List<OperationClaim>> SetClaims(UserOperationClaim userOperationClaims)
