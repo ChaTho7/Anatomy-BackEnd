@@ -33,8 +33,21 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpPut("updateUser")]
+        public ActionResult UpdateUser(User user)
+        {
+
+            var result = _userService.Update(user);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
         [HttpPost("setUserClaims")]
-        public ActionResult Register(UserOperationClaim userOperationClaims)
+        public ActionResult SetUserClaims(UserOperationClaim userOperationClaims)
         {
 
             var result = _userService.SetClaims(userOperationClaims);

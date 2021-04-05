@@ -18,24 +18,18 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("addimage")]
-        public IActionResult Add([FromForm]IFormFile formFile, [FromForm]string tissueId)
+        public IActionResult Add([FromForm] IFormFile formFile, [FromForm] string tissueId)
         {
-            Image image = new Image {File = formFile};
-            try
-            {
-                var result = _tissueImageService.Add(image, Int32.Parse(tissueId));
+            Image image = new Image { File = formFile };
+            var result = _tissueImageService.Add(image, Int32.Parse(tissueId));
 
-                if (result.Success)
-                {
-                    return Ok("Uploaded");
-                }
-
-                return BadRequest(result.Message);
-            }
-            catch (Exception e)
+            if (result.Success)
             {
-                return BadRequest(e.Message);
+                return Ok(result);
             }
+
+            return BadRequest(result.Message);
+
         }
 
         [HttpGet("getimage")]
@@ -44,7 +38,7 @@ namespace WebAPI.Controllers
             try
             {
                 var result = _tissueImageService.GetImagesPerTissue(tissueId);
-                
+
                 if (result.Data != default)
                 {
                     return Ok(result);

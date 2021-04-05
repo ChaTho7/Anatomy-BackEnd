@@ -29,6 +29,12 @@ namespace Business.Concrete
             return new SuccessResult<User>(Messages.userRegistered, user);
         }
 
+        public IResult<User> Update(User user)
+        {
+            _userDal.UpdateUser(user);
+            return new SuccessResult<User>(Messages.userUpdated);
+        }
+
         public IResult<User> GetByMail(string email)
         {
             var user = _userDal.Get(u => u.Email == email);

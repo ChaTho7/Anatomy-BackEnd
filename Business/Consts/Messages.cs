@@ -24,5 +24,7 @@ namespace Business.Consts
         public static string userNotExists = "User not exists";
         public static string imageNotExists = "Image not exists";
         public static string claimsSetted="Claims setted successfully";
+        public static string imageAddSuccess = "Image added successfully";
+        public static string userUpdated = "User infos updated successfully";
     }
 }

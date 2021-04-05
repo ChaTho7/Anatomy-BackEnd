@@ -50,12 +50,17 @@ namespace Core.Extensions
                     Errors = errors
                 }.ToString());
             }
-
-            return httpContext.Response.WriteAsync(new ErrorDetails
+            else
             {
-                StatusCode = httpContext.Response.StatusCode,
-                Message = message
-            }.ToString());
+                message = e.Message;
+                httpContext.Response.StatusCode = 400;
+
+                return httpContext.Response.WriteAsync(new ErrorDetails
+                {
+                    StatusCode = httpContext.Response.StatusCode,
+                    Message = message
+                }.ToString());
+            }
         }
     }
 }

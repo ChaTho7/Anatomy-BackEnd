@@ -30,7 +30,7 @@ namespace Business.Concrete
             _databaseFileSytem = new ImageDbFiling();
         }
 
-        [SecuredOperation("product.add,admin")]
+        [SecuredOperation("admin")]
         [ValidationAspect(typeof(TissueImageValidator))]
         public IResult<TissueImage> Add(Image file, int tissueId)
         {
@@ -56,15 +56,17 @@ namespace Business.Concrete
             _localFileSystem.Filing(file, tissueImage.Guid);
             _tissueImageDal.Add(tissueImage);
 
-            return new SuccessResult<TissueImage>(Messages.success);
+            return new SuccessResult<TissueImage>(Messages.imageAddSuccess);
         }
 
+        [SecuredOperation("admin")]
         public IResult<TissueImage> Delete(TissueImage tissueImage)
         {
             _tissueImageDal.Delete(tissueImage);
             return new SuccessResult<TissueImage>(Messages.success);
         }
 
+        [SecuredOperation("admin")]
         public IResult<List<TissueImage>> GetImagesPerTissue(int tissueId)
         {          
             var result = BusinessRules<TissueImage>.Checker(IfImageExistCheck(tissueId));
@@ -83,6 +85,7 @@ namespace Business.Concrete
             return new SuccessResult<List<TissueImage>>(Messages.success, byteImages);
         }
 
+        [SecuredOperation("admin")]
         public IResult<TissueImage> Update(TissueImage tissueImage)
         {
             tissueImage.Date = DateTime.Now;

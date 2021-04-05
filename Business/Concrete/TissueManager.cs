@@ -28,7 +28,7 @@ namespace Business.Concrete
             _sortService = sortService;
         }
 
-        [SecuredOperation("product.add,admin")]
+        [SecuredOperation("admin")]
         [ValidationAspect(typeof(TissueValidator))]
         public IResult<Tissue> Add(Tissue tissue)
         {
@@ -46,14 +46,14 @@ namespace Business.Concrete
             return new SuccessResult<Tissue>(Messages.success, tissue);
         }
 
-        [SecuredOperation("product.add,admin")]
+        [SecuredOperation("admin")]
         [CacheRemoveAspect("ITissueService.GetById")]
         public IResult<Tissue> Delete(Tissue tissue)
         {
             return new SuccessResult<Tissue>(Messages.success, tissue);
         }
 
-        [SecuredOperation("product.add,admin")]
+        [SecuredOperation("admin")]
         [CacheRemoveAspect("ITissueService.GetById")]
         public IResult<Tissue> Update(Tissue tissue)
         {
@@ -61,40 +61,22 @@ namespace Business.Concrete
             return new SuccessResult<Tissue>(Messages.success, tissue);
         }
 
-        //[SecuredOperation("product.add,admin")]
+        [SecuredOperation("admin")]
         [CacheAspect]
         public IResult<Tissue> GetById(int id)
         {
             return new SuccessResult<Tissue>(Messages.success, _tissueDal.Get(p => p.Id == id));
         }
 
-        //[SecuredOperation("product.add,admin")]
+        [SecuredOperation("admin")]
         public IResult<List<TissueDetailDto>> GetByFilter(int? id, int? sortId, int? regionId)
         {
             return new SuccessResult<List<TissueDetailDto>>(Messages.success, _tissueDal.GetDetailByFilter(id, sortId, regionId));
         }
 
+        [SecuredOperation("admin")]
         public IResult<List<Tissue>> GetAll()
         {
-            //if (DateTime.Now.Hour == 19)
-            //{
-            //    return new FailResult<List<Tissue>>(Messages.fail);
-            //}
-
-            //var tissues = _tissueDal.GetAll();
-            //List<Tissue> tss = new List<Tissue>();
-
-            //foreach (var ts in tissues)
-            //{
-            //    tss.Add(new Tissue(){
-            //        Name = ts.Name.TrimEnd(),
-            //        Gender = ts.Gender,
-            //        Id = ts.Id,
-            //        RegionId = ts.RegionId,
-            //        SortId = ts.SortId
-            //        });
-            //}
-
             return new SuccessResult<List<Tissue>>(Messages.success, _tissueDal.GetAll());
         }
 
