@@ -34,15 +34,13 @@ namespace Business.Concrete
         public IResult<User> Update(UserUpdateDto userUpdate)
         {
             byte[] passwordHash, passwordSalt;
-            if (userUpdate.Password == null)
+            if (userUpdate.NewPassword != "")
             {
-                var updatedUser = _userDal.Get(u => u.Id == userUpdate.Id);
-                passwordHash = updatedUser.PasswordHash;
-                passwordSalt = updatedUser.PasswordSalt;
+                HashingHelper.CreatePasswordHash(userUpdate.NewPassword, out passwordHash, out passwordSalt);
             }
             else
             {
-                HashingHelper.CreatePasswordHash(userUpdate.Password, out passwordHash, out passwordSalt);
+                HashingHelper.CreatePasswordHash(userUpdate.CurrentPassword, out passwordHash, out passwordSalt);
             }
             var user = new User
             {
