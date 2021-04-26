@@ -1,5 +1,7 @@
 # ChaTho Antomy-BackEnd
 
+This project was generated with .NET Core 3.1.
+
 ## Project Summary
 
 This project has been created as a result of long efforts. All studies are devoted to the medical community.
